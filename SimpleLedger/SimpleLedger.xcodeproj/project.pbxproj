@@ -8,6 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		1AA992A966662B60AD45B5DE /* Pods_SimpleLedger.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9F47AB6998C064104959C9EE /* Pods_SimpleLedger.framework */; };
+		515624BF2B20407A00014F41 /* TagModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 515624BE2B20407A00014F41 /* TagModel.swift */; };
+		515624C12B20411300014F41 /* TagViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 515624C02B20411300014F41 /* TagViewModel.swift */; };
+		515624C32B20519B00014F41 /* LedgerModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 515624C22B20519B00014F41 /* LedgerModel.swift */; };
+		515624C52B2051EA00014F41 /* LedgerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 515624C42B2051EA00014F41 /* LedgerViewModel.swift */; };
 		518E00BE2B200052002226F0 /* SimpleLedgerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 518E00BD2B200052002226F0 /* SimpleLedgerApp.swift */; };
 		518E00C02B200052002226F0 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 518E00BF2B200052002226F0 /* ContentView.swift */; };
 		518E00C22B200055002226F0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 518E00C12B200055002226F0 /* Assets.xcassets */; };
@@ -16,10 +20,15 @@
 		518E00D32B200B42002226F0 /* ChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 518E00D22B200B42002226F0 /* ChartView.swift */; };
 		518E00D52B200B93002226F0 /* TagView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 518E00D42B200B93002226F0 /* TagView.swift */; };
 		518E00D72B200F2F002226F0 /* FSCalendarRepresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 518E00D62B200F2F002226F0 /* FSCalendarRepresentable.swift */; };
+		5196DF372B24062B00E09C30 /* DateHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5196DF362B24062B00E09C30 /* DateHelper.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		21D91256FE4B987D0476767E /* Pods-SimpleLedger.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SimpleLedger.debug.xcconfig"; path = "Target Support Files/Pods-SimpleLedger/Pods-SimpleLedger.debug.xcconfig"; sourceTree = "<group>"; };
+		515624BE2B20407A00014F41 /* TagModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagModel.swift; sourceTree = "<group>"; };
+		515624C02B20411300014F41 /* TagViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagViewModel.swift; sourceTree = "<group>"; };
+		515624C22B20519B00014F41 /* LedgerModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LedgerModel.swift; sourceTree = "<group>"; };
+		515624C42B2051EA00014F41 /* LedgerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LedgerViewModel.swift; sourceTree = "<group>"; };
 		518E00BA2B200052002226F0 /* SimpleLedger.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SimpleLedger.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		518E00BD2B200052002226F0 /* SimpleLedgerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleLedgerApp.swift; sourceTree = "<group>"; };
 		518E00BF2B200052002226F0 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -30,6 +39,8 @@
 		518E00D22B200B42002226F0 /* ChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartView.swift; sourceTree = "<group>"; };
 		518E00D42B200B93002226F0 /* TagView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagView.swift; sourceTree = "<group>"; };
 		518E00D62B200F2F002226F0 /* FSCalendarRepresentable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSCalendarRepresentable.swift; sourceTree = "<group>"; };
+		5196DF362B24062B00E09C30 /* DateHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateHelper.swift; sourceTree = "<group>"; };
+		5196DF382B24084700E09C30 /* SimpleLedger.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = SimpleLedger.entitlements; sourceTree = "<group>"; };
 		9F47AB6998C064104959C9EE /* Pods_SimpleLedger.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SimpleLedger.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		AB9123D18E460206E2377712 /* Pods-SimpleLedger.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SimpleLedger.release.xcconfig"; path = "Target Support Files/Pods-SimpleLedger/Pods-SimpleLedger.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -67,6 +78,7 @@
 		518E00BC2B200052002226F0 /* SimpleLedger */ = {
 			isa = PBXGroup;
 			children = (
+				5196DF382B24084700E09C30 /* SimpleLedger.entitlements */,
 				518E00CF2B200917002226F0 /* Helpers */,
 				518E00CE2B20090B002226F0 /* ViewModels */,
 				518E00CD2B200900002226F0 /* Models */,
@@ -102,6 +114,8 @@
 		518E00CD2B200900002226F0 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				515624BE2B20407A00014F41 /* TagModel.swift */,
+				515624C22B20519B00014F41 /* LedgerModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -109,6 +123,8 @@
 		518E00CE2B20090B002226F0 /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
+				515624C02B20411300014F41 /* TagViewModel.swift */,
+				515624C42B2051EA00014F41 /* LedgerViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -116,6 +132,7 @@
 		518E00CF2B200917002226F0 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				5196DF362B24062B00E09C30 /* DateHelper.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -252,10 +269,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				518E00C02B200052002226F0 /* ContentView.swift in Sources */,
+				515624C32B20519B00014F41 /* LedgerModel.swift in Sources */,
+				515624BF2B20407A00014F41 /* TagModel.swift in Sources */,
 				518E00D72B200F2F002226F0 /* FSCalendarRepresentable.swift in Sources */,
 				518E00D52B200B93002226F0 /* TagView.swift in Sources */,
+				515624C52B2051EA00014F41 /* LedgerViewModel.swift in Sources */,
 				518E00BE2B200052002226F0 /* SimpleLedgerApp.swift in Sources */,
+				515624C12B20411300014F41 /* TagViewModel.swift in Sources */,
 				518E00D12B200B22002226F0 /* CalendarView.swift in Sources */,
+				5196DF372B24062B00E09C30 /* DateHelper.swift in Sources */,
 				518E00D32B200B42002226F0 /* ChartView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -383,9 +405,11 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = SimpleLedger/SimpleLedger.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"SimpleLedger/Preview Content\"";
+				DEVELOPMENT_TEAM = WQWH45BJP4;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = SimpleLedger/Info.plist;
@@ -412,9 +436,11 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = SimpleLedger/SimpleLedger.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"SimpleLedger/Preview Content\"";
+				DEVELOPMENT_TEAM = WQWH45BJP4;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = SimpleLedger/Info.plist;

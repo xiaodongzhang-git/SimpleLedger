@@ -2,16 +2,37 @@
 //  FSCalendarRepresentable.swift
 //  SimpleLedger
 //
-//  Created by xiaodong zhang on 2023/12/06.
-//
+
 
 import SwiftUI
 import FSCalendar
 
 struct FSCalendarRepresentable: UIViewRepresentable {
+    @Binding var selectedDate: Date
+    @Binding var showingDetail: Bool
+
+    class Coordinator: NSObject, FSCalendarDelegate {
+        var parent: FSCalendarRepresentable
+
+        init(parent: FSCalendarRepresentable) {
+            self.parent = parent
+        }
+
+        // FSCalendar 的日期选择代理方法
+        func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {
+            parent.selectedDate = date
+            parent.showingDetail = true
+        }
+    }
+
+    func makeCoordinator() -> Coordinator {
+        Coordinator(parent: self)
+    }
+
     func makeUIView(context: Context) -> FSCalendar {
         let calendar = FSCalendar()
-        // 在此处配置 FSCalendar 的属性
+        calendar.delegate = context.coordinator
+        // 在这里配置 FSCalendar 的其他属性
         return calendar
     }
 
@@ -21,8 +42,3 @@ struct FSCalendarRepresentable: UIViewRepresentable {
 }
 
 
-struct FSCalendarRepresentable_Previews: PreviewProvider {
-    static var previews: some View {
-        FSCalendarRepresentable()
-    }
-}

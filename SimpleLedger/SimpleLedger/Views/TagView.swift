@@ -2,21 +2,15 @@
 //  TagView.swift
 //  SimpleLedger
 //
-//  Created by xiaodong zhang on 2023/12/06.
-//
 
 import SwiftUI
 
-struct TagData {
-    var name: String
-    var color: Color
-}
-
 struct TagView: View {
+    @StateObject private var viewModel = TagViewModel()
     @State private var newTagName = ""
     @State private var selectedColor: Color = .gray
-    @State private var tags: [TagData] = []
-    let availableColors: [Color] = [.red, .green, .blue, .yellow, .orange, .purple, .pink, .brown, .cyan, .mint]
+    @State private var editingTagID: UUID? = nil
+    @State private var tempTagName = "" // 用于临时存储编辑中的标签名称
 
     var body: some View {
         VStack {
@@ -34,7 +28,7 @@ struct TagView: View {
 
             // 创建按钮
             Button("创建标签") {
-                addTag(name: newTagName, color: selectedColor)
+                viewModel.addTag(name: newTagName, color: selectedColor)
                 newTagName = "" // 重置输入
             }
             .disabled(newTagName.isEmpty || isColorUsed(selectedColor))
@@ -43,37 +37,46 @@ struct TagView: View {
 
             // 显示已创建的标签
             List {
-                ForEach(tags, id: \.name) { tag in
+                ForEach(viewModel.tags) { tag in
                     HStack {
-                        Text(tag.name)
-                        Spacer()
-                        Circle()
-                            .fill(tag.color)
-                            .frame(width: 24, height: 24)
+                        if editingTagID == tag.id {
+                            // 编辑状态
+                            TextField("编辑标签", text: $tempTagName)
+                            Spacer()
+                            Button(action: {
+                                viewModel.updateTag(id: tag.id, newName: tempTagName)
+                                editingTagID = nil
+                            }) {
+                                Image(systemName: "checkmark")
+                            }
+                        } else {
+                            // 常规显示
+                            Text(tag.name)
+                            Spacer()
+                            Circle()
+                                .fill(Color(uiColor: tag.color))
+                                .frame(width: 24, height: 24)
+
+                            // 编辑按钮
+                            Button(action: {
+                                tempTagName = tag.name
+                                editingTagID = tag.id
+                            }) {
+                                Image(systemName: "pencil")
+                            }
+                        }
                     }
                 }
-                .onDelete(perform: deleteTag)
+                .onDelete(perform: viewModel.deleteTag)
             }
-
-            Spacer()
         }
         .padding()
     }
 
-    // 添加新标签
-    private func addTag(name: String, color: Color) {
-        let newTag = TagData(name: name, color: color)
-        tags.append(newTag)
-    }
-
-    // 删除标签
-    private func deleteTag(at offsets: IndexSet) {
-        tags.remove(atOffsets: offsets)
-    }
-
     // 检查颜色是否已被使用
     private func isColorUsed(_ color: Color) -> Bool {
-        tags.contains { $0.color == color }
+        let uiColor = UIColor(color)
+        return viewModel.tags.contains { $0.color == uiColor }
     }
 }
 
@@ -82,4 +85,3 @@ struct TagView_Previews: PreviewProvider {
         TagView()
     }
 }
-
