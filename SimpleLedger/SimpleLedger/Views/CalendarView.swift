@@ -39,12 +39,17 @@ struct LedgerDetailView: View {
     var body: some View {
         VStack {
             List {
-                ForEach(viewModel.getEntriesByDate(for: date)) { entry in
+                ForEach(viewModel.entries(for: date)) { entry in
                     VStack(alignment: .leading) {
-                        Text(entry.tagName)
-                            .foregroundColor(entry.tagColor)
-                        Text(String(format: "%.2f", entry.amount))
-                        Text(entry.memo)
+                        if let tag = tagViewModel.tags.first(where: { $0.id == entry.tagID }) {
+                            HStack {
+                                Text(tag.name)
+                                    .foregroundColor(Color(tag.color))
+                                Spacer()
+                                Text(String(format: "%.2f", entry.amount))
+                                Text(entry.memo)
+                            }
+                        }
                     }
                 }
                 // 用于输入新账目的区域
@@ -103,7 +108,7 @@ struct LedgerDetailView: View {
             print("Memo: \(memoText)")
 
             // 添加到 LedgerViewModel
-            // viewModel.addEntry(amount: amount, tagID: selectedTag.id, tagName: selectedTag.name, tagColor: selectedTag.color, memo: memoText, date: date)
+             viewModel.addEntry(amount: amount, tagID: selectedTag.id, memo: memoText, date: date)
 
             // 清空输入
             amountText = ""
