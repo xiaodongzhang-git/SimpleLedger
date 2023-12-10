@@ -9,6 +9,7 @@ import SwiftUI
 class LedgerViewModel: ObservableObject {
     @Published var entries: [LedgerEntry] = []
     private let database = CKContainer.default().privateCloudDatabase
+    var onDataLoaded: (() -> Void)?
     
     init() {
         fetchAllEntries()
@@ -108,17 +109,33 @@ class LedgerViewModel: ObservableObject {
             case .success(_):
                 DispatchQueue.main.async {
                     self?.entries = fetchedEntries
+                    self?.onDataLoaded?()
                 }
             }
         }
 
         database.add(operation)
-        print(self.entries)
     }
 
     // 筛选特定日期的 LedgerEntry
     func entries(for date: Date) -> [LedgerEntry] {
         return entries.filter { $0.date == DateHelper.formatDateToString(date) }
+    }
+    
+    func totalAmountPerDay() -> [Date: Double] {
+        var totals: [Date: Double] = [:]
+        let groupedEntries = Dictionary(grouping: entries, by: { $0.date })
+        print(entries)
+        print("=========")
+        print(groupedEntries)
+        groupedEntries.forEach { key, value in
+            print("*************")
+            let total = value.reduce(0) { $0 + $1.amount }
+            if let date = DateHelper.stringToDate(key) {
+                totals[date] = total
+            }
+        }
+        return totals
     }
     
 }

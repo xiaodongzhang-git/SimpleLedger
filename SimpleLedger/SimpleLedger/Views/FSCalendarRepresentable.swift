@@ -3,15 +3,15 @@
 //  SimpleLedger
 //
 
-
 import SwiftUI
 import FSCalendar
 
 struct FSCalendarRepresentable: UIViewRepresentable {
     @Binding var selectedDate: Date
     @Binding var showingDetail: Bool
+    var viewModel: LedgerViewModel  // LedgerViewModel 实例
 
-    class Coordinator: NSObject, FSCalendarDelegate {
+    class Coordinator: NSObject, FSCalendarDelegate, FSCalendarDataSource {
         var parent: FSCalendarRepresentable
 
         init(parent: FSCalendarRepresentable) {
@@ -23,6 +23,12 @@ struct FSCalendarRepresentable: UIViewRepresentable {
             parent.selectedDate = date
             parent.showingDetail = true
         }
+
+        // FSCalendarDataSource 方法来提供每个日期的子标题
+        func calendar(_ calendar: FSCalendar, subtitleFor date: Date) -> String? {
+            let totalAmount = parent.viewModel.totalAmountPerDay()[date]
+            return totalAmount != nil ? String(format: "%.2f", totalAmount!) : nil
+        }
     }
 
     func makeCoordinator() -> Coordinator {
@@ -32,13 +38,16 @@ struct FSCalendarRepresentable: UIViewRepresentable {
     func makeUIView(context: Context) -> FSCalendar {
         let calendar = FSCalendar()
         calendar.delegate = context.coordinator
-        // 在这里配置 FSCalendar 的其他属性
+        calendar.dataSource = context.coordinator
+        
+        viewModel.onDataLoaded = {
+            calendar.reloadData()
+        }
         return calendar
     }
 
     func updateUIView(_ uiView: FSCalendar, context: Context) {
-        // 当 SwiftUI 视图的状态改变时，更新 FSCalendar
+        uiView.reloadData()
     }
 }
-
 

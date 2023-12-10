@@ -14,7 +14,7 @@ struct CalendarView: View {
 
     var body: some View {
         VStack {
-            FSCalendarRepresentable(selectedDate: $selectedDate, showingDetail: $showingDetail)
+            FSCalendarRepresentable(selectedDate: $selectedDate, showingDetail: $showingDetail, viewModel: viewModel)
             Button("") {
                 showingDetail = true
             }
@@ -40,21 +40,17 @@ struct LedgerDetailView: View {
         VStack {
             List {
                 ForEach(viewModel.entries(for: date)) { entry in
-                    VStack(alignment: .leading) {
-                        if let tag = tagViewModel.tags.first(where: { $0.id == entry.tagID }) {
-                            HStack {
-                                Text(tag.name)
-                                    .foregroundColor(Color(tag.color))
-                                Spacer()
-                                Text(String(format: "%.2f", entry.amount))
-                                Text(entry.memo)
-                            }
-                        }
+                    LedgerEntryRow(entry: entry, tagViewModel: tagViewModel) {
+                        // TODO: 实现修改操作
+                    } onDelete: {
+                        if let recordID = entry.recordID {
+                                    viewModel.deleteEntry(recordID: recordID)
+                                }
                     }
                 }
-                // 用于输入新账目的区域
-                inputSection
+                .onDelete(perform: deleteEntry)
             }
+            inputSection
         }
     }
 
@@ -113,6 +109,53 @@ struct LedgerDetailView: View {
             // 清空输入
             amountText = ""
             memoText = ""
+        }
+    }
+    
+    private func deleteEntry(at offsets: IndexSet) {
+        offsets.forEach { index in
+            let entry = viewModel.entries(for: date)[index]
+            if let recordID = entry.recordID {
+                viewModel.deleteEntry(recordID: recordID)
+            }
+        }
+    }
+}
+
+
+struct LedgerEntryRow: View {
+    var entry: LedgerEntry
+    var tagViewModel: TagViewModel
+    var onEdit: () -> Void
+    var onDelete: () -> Void
+
+    var body: some View {
+        HStack {
+            VStack(alignment: .leading, spacing: 4) {
+                Text(entry.memo)
+                    .font(.subheadline)
+                    .foregroundColor(.secondary)
+                    .lineLimit(nil)
+                HStack {
+                    Text(entry.amount, format: .currency(code: "USD"))
+                        .fontWeight(.bold)
+                    Spacer()
+                    if let tag = tagViewModel.tags.first(where: { $0.id == entry.tagID }) {
+                        Text(tag.name)
+                            .padding(5)
+                            .background(Color(tag.color))
+                            .foregroundColor(.white)
+                            .cornerRadius(5)
+                    }
+                }
+            }
+            Spacer()
+//            Button(action: onEdit) {
+//                Image(systemName: "pencil.circle")
+//            }
+//            Button(action: onDelete) {
+//                Image(systemName: "trash.circle")
+//            }
         }
     }
 }

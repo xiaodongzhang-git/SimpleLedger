@@ -21,6 +21,7 @@
 		518E00D52B200B93002226F0 /* TagView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 518E00D42B200B93002226F0 /* TagView.swift */; };
 		518E00D72B200F2F002226F0 /* FSCalendarRepresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 518E00D62B200F2F002226F0 /* FSCalendarRepresentable.swift */; };
 		5196DF372B24062B00E09C30 /* DateHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5196DF362B24062B00E09C30 /* DateHelper.swift */; };
+		5196DF3C2B25DED200E09C30 /* CustomFSCalendarCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5196DF3B2B25DED200E09C30 /* CustomFSCalendarCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -41,6 +42,7 @@
 		518E00D62B200F2F002226F0 /* FSCalendarRepresentable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSCalendarRepresentable.swift; sourceTree = "<group>"; };
 		5196DF362B24062B00E09C30 /* DateHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateHelper.swift; sourceTree = "<group>"; };
 		5196DF382B24084700E09C30 /* SimpleLedger.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = SimpleLedger.entitlements; sourceTree = "<group>"; };
+		5196DF3B2B25DED200E09C30 /* CustomFSCalendarCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomFSCalendarCell.swift; sourceTree = "<group>"; };
 		9F47AB6998C064104959C9EE /* Pods_SimpleLedger.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SimpleLedger.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		AB9123D18E460206E2377712 /* Pods-SimpleLedger.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SimpleLedger.release.xcconfig"; path = "Target Support Files/Pods-SimpleLedger/Pods-SimpleLedger.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -107,6 +109,7 @@
 				518E00D22B200B42002226F0 /* ChartView.swift */,
 				518E00D42B200B93002226F0 /* TagView.swift */,
 				518E00D62B200F2F002226F0 /* FSCalendarRepresentable.swift */,
+				5196DF3B2B25DED200E09C30 /* CustomFSCalendarCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -279,6 +282,7 @@
 				518E00D12B200B22002226F0 /* CalendarView.swift in Sources */,
 				5196DF372B24062B00E09C30 /* DateHelper.swift in Sources */,
 				518E00D32B200B42002226F0 /* ChartView.swift in Sources */,
+				5196DF3C2B25DED200E09C30 /* CustomFSCalendarCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
