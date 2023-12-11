@@ -137,4 +137,44 @@ class LedgerViewModel: ObservableObject {
         return totals
     }
     
+    func getEntries(for timeScope: TimeScope) -> [LedgerEntry] {
+        let now = Date()
+        let calendar = Calendar.current
+        var startDate: Date?
+        var endDate: Date?
+
+        switch timeScope {
+        case .today:
+            startDate = calendar.startOfDay(for: now)
+            endDate = calendar.date(byAdding: .day, value: 1, to: startDate!)
+        case .thisMonth:
+            startDate = calendar.date(from: calendar.dateComponents([.year, .month], from: now))
+            endDate = calendar.date(byAdding: .month, value: 1, to: startDate!)
+        case .thisYear:
+            startDate = calendar.date(from: calendar.dateComponents([.year], from: now))
+            endDate = calendar.date(byAdding: .year, value: 1, to: startDate!)
+        }
+
+        let filteredEntries = entries.filter { entry in
+            guard let entryDate = DateHelper.stringToDate(entry.date) else {
+                return false
+            }
+            return entryDate >= startDate! && entryDate < endDate!
+        }
+        
+        let totalsByTag = Dictionary(grouping: filteredEntries, by: { $0.tagID })
+                    .mapValues { entries in
+                        entries.reduce(0) { $0 + $1.amount }
+                    }
+
+        // 为每个 tagID 创建新的 LedgerEntry
+        return totalsByTag.map { tagID, totalAmount in
+            LedgerEntry(amount: totalAmount, tagID: tagID, memo: "", date: "")
+        }
+    }
+    
+}
+
+enum TimeScope {
+    case today, thisMonth, thisYear
 }

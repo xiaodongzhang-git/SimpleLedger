@@ -5,54 +5,22 @@
 
 import SwiftUI
 
-// 更新后的ExpenseData，包含颜色字段
-struct ExpenseData {
-    var tag: String
-    var amount: Double
-    var color: Color
-}
 
 struct ChartView: View {
-    @State private var selectedRange: DateRange = .day
-
-    // 示例数据
-    let dayData: [ExpenseData] = [
-        ExpenseData(tag: "生活费", amount: 1000, color: .black),
-        ExpenseData(tag: "学费", amount: 2000, color: .green)
-        // 更多日数据...
-    ]
-
-    let weekData: [ExpenseData] = [
-        ExpenseData(tag: "生活费", amount: 7000, color: .red),
-        ExpenseData(tag: "学费", amount: 14000, color: .green)
-        // 更多周数据...
-    ]
-    
-    let monthData: [ExpenseData] = [
-            ExpenseData(tag: "生活费", amount: 30000, color: .red),
-            ExpenseData(tag: "学费", amount: 60000, color: .green)
-            // 更多月数据...
-        ]
-
-        let yearData: [ExpenseData] = [
-            ExpenseData(tag: "生活费", amount: 360000, color: .green),
-            ExpenseData(tag: "学费", amount: 720000, color: .red)
-            // 更多年数据...
-        ]
-
+    @StateObject private var ledgerModel = LedgerViewModel()
+    @StateObject private var tagViewModel = TagViewModel()
+    @State private var selectedRange: TimeScope = .today
 
     var body: some View {
         VStack {
-            // 时间范围选择器
             HStack {
-                Button("当天") { selectedRange = .day }
-                Button("7天") { selectedRange = .week }
-                Button("30天") { selectedRange = .month }
-                Button("年") { selectedRange = .year }
+                Button("今天") { selectedRange = .today }
+                Button("当月") { selectedRange = .thisMonth }
+                Button("今年") { selectedRange = .thisYear }
             }
 
             // 圆形图表
-            PieChartView(data: dataForSelectedRange())
+            PieChartView(data: dataForSelectedRange(), tagViewModel: tagViewModel)
 
             // 总金额
             Text("总金额: \(totalAmountForSelectedRange())")
@@ -60,30 +28,26 @@ struct ChartView: View {
         .padding()
     }
 
-    private func dataForSelectedRange() -> [ExpenseData] {
+    private func dataForSelectedRange() -> [LedgerEntry] {
         switch selectedRange {
-        case .day:
-            return dayData
-        case .week:
-            return weekData
-        case .month:
-            return monthData
-        case .year:
-            return yearData
+        case .today:
+            return ledgerModel.getEntries(for: .today)
+        case .thisMonth:
+            return ledgerModel.getEntries(for: .thisMonth)
+        case .thisYear:
+            return ledgerModel.getEntries(for: .thisYear)
         }
     }
 
     private func totalAmountForSelectedRange() -> Double {
         dataForSelectedRange().reduce(0) { $0 + $1.amount }
     }
-}
-
-enum DateRange {
-    case day, week, month, year
+    
 }
 
 struct PieChartView: View {
-    var data: [ExpenseData]
+    var data: [LedgerEntry]
+    var tagViewModel: TagViewModel
 
     var body: some View {
         GeometryReader { geometry in
@@ -97,8 +61,8 @@ struct PieChartView: View {
                     PieSliceView(center: center, radius: radius,
                                  startAngle: angle(for: index, in: data),
                                  endAngle: angle(for: index + 1, in: data),
-                                 color: data[index].color,
-                                 tag: data[index].tag,
+                                 color: Color(getTagModelById(id: data[index].tagID).color),
+                                 tag: getTagModelById(id: data[index].tagID).name,
                                  amount: data[index].amount)
                 }
             }
@@ -107,10 +71,14 @@ struct PieChartView: View {
         .aspectRatio(1, contentMode: .fit)
     }
 
-    private func angle(for index: Int, in data: [ExpenseData]) -> Angle {
+    private func angle(for index: Int, in data: [LedgerEntry]) -> Angle {
         let total = data.reduce(0) { $0 + $1.amount }
         let sum = data.prefix(index).reduce(0) { $0 + $1.amount }
         return .degrees(sum / total * 360)
+    }
+    
+    private func getTagModelById(id: UUID) -> TagModel {
+        return tagViewModel.getTagById(withId: id) ?? TagModel(name: "默认", color: UIColor(.gray))
     }
 }
 

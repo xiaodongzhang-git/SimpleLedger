@@ -52,4 +52,8 @@ class TagViewModel: ObservableObject {
         tags.remove(atOffsets: offsets)
         saveTags()
     }
+    
+    func getTagById(withId id: UUID) -> TagModel? {
+        return tags.first { $0.id == id }
+    }
 }
