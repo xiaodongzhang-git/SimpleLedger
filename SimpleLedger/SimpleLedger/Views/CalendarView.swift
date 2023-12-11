@@ -11,18 +11,14 @@ struct CalendarView: View {
     @State private var showingDetail = false
     @StateObject private var viewModel = LedgerViewModel()
     @StateObject private var tagViewModel = TagViewModel()
-
+    @StateObject private var sharedDateModel = SharedDateModel()
+    
     var body: some View {
         VStack {
-            FSCalendarRepresentable(selectedDate: $selectedDate, showingDetail: $showingDetail, viewModel: viewModel)
-            Button("") {
-                showingDetail = true
-            }
+            FSCalendarRepresentable(selectedDate: $sharedDateModel.selectedDate, showingDetail: $showingDetail, viewModel: viewModel)
         }
         .sheet(isPresented: $showingDetail) {
-            LedgerDetailView(viewModel: viewModel,
-                tagViewModel: tagViewModel,
-                             date: selectedDate)
+            LedgerDetailView(viewModel: viewModel, tagViewModel: tagViewModel, date: sharedDateModel.selectedDate)
         }
     }
 }
@@ -31,11 +27,11 @@ struct LedgerDetailView: View {
     @ObservedObject var viewModel: LedgerViewModel
     @ObservedObject var tagViewModel: TagViewModel
     var date: Date
-
+    
     @State private var selectedTagIndex: Int = 0
     @State private var amountText: String = ""
     @State private var memoText: String = ""
-
+    
     var body: some View {
         VStack {
             List {
@@ -44,8 +40,8 @@ struct LedgerDetailView: View {
                         // TODO: 实现修改操作
                     } onDelete: {
                         if let recordID = entry.recordID {
-                                    viewModel.deleteEntry(recordID: recordID)
-                                }
+                            viewModel.deleteEntry(recordID: recordID)
+                        }
                     }
                 }
                 .onDelete(perform: deleteEntry)
@@ -53,7 +49,7 @@ struct LedgerDetailView: View {
             inputSection
         }
     }
-
+    
     private var inputSection: some View {
         Group {
             // 标签选择
@@ -62,14 +58,14 @@ struct LedgerDetailView: View {
                     Text(tagViewModel.tags[index].name).tag(index)
                 }
             }
-
+            
             // 金额输入
             TextField("金额", text: $amountText)
                 .keyboardType(.decimalPad)
-
+            
             // 备注输入
             TextField("备注", text: $memoText)
-
+            
             // 保存按钮
             Section {
                 Button("保存") {
@@ -94,7 +90,7 @@ struct LedgerDetailView: View {
         }
         return true
     }
-
+    
     private func saveEntry() {
         if let amount = Double(amountText), selectedTagIndex >= 0 && selectedTagIndex < tagViewModel.tags.count {
             let selectedTag = tagViewModel.tags[selectedTagIndex]
@@ -102,10 +98,10 @@ struct LedgerDetailView: View {
             print("Selected Tag: \(selectedTag)")
             print("Amount: \(amount)")
             print("Memo: \(memoText)")
-
+            
             // 添加到 LedgerViewModel
-             viewModel.addEntry(amount: amount, tagID: selectedTag.id, memo: memoText, date: date)
-
+            viewModel.addEntry(amount: amount, tagID: selectedTag.id, memo: memoText, date: date)
+            
             // 清空输入
             amountText = ""
             memoText = ""
@@ -128,7 +124,7 @@ struct LedgerEntryRow: View {
     var tagViewModel: TagViewModel
     var onEdit: () -> Void
     var onDelete: () -> Void
-
+    
     var body: some View {
         HStack {
             VStack(alignment: .leading, spacing: 4) {
@@ -150,12 +146,12 @@ struct LedgerEntryRow: View {
                 }
             }
             Spacer()
-//            Button(action: onEdit) {
-//                Image(systemName: "pencil.circle")
-//            }
-//            Button(action: onDelete) {
-//                Image(systemName: "trash.circle")
-//            }
+            //            Button(action: onEdit) {
+            //                Image(systemName: "pencil.circle")
+            //            }
+            //            Button(action: onDelete) {
+            //                Image(systemName: "trash.circle")
+            //            }
         }
     }
 }

@@ -37,6 +37,7 @@ class LedgerViewModel: ObservableObject {
                     date: DateHelper.formatDateToString(date)
                 )
                 self.entries.append(ledgerEntry)
+                self.onDataLoaded?()
             }
         }
     }
@@ -50,6 +51,7 @@ class LedgerViewModel: ObservableObject {
             }
             DispatchQueue.main.async {
                 self.entries.removeAll { $0.recordID == recordID }
+                self.onDataLoaded?()
             }
         }
     }
@@ -75,13 +77,14 @@ class LedgerViewModel: ObservableObject {
                         self.entries[index].tagID = newTagID
                         self.entries[index].memo = newMemo
                     }
+                    self.onDataLoaded?()
                 }
             }
         }
     }
 
     // 加载所有 LedgerEntry
-    private func fetchAllEntries() {
+    func fetchAllEntries() {
         let query = CKQuery(recordType: "LedgerEntry", predicate: NSPredicate(value: true))
         let operation = CKQueryOperation(query: query)
 
@@ -125,11 +128,7 @@ class LedgerViewModel: ObservableObject {
     func totalAmountPerDay() -> [Date: Double] {
         var totals: [Date: Double] = [:]
         let groupedEntries = Dictionary(grouping: entries, by: { $0.date })
-        print(entries)
-        print("=========")
-        print(groupedEntries)
         groupedEntries.forEach { key, value in
-            print("*************")
             let total = value.reduce(0) { $0 + $1.amount }
             if let date = DateHelper.stringToDate(key) {
                 totals[date] = total

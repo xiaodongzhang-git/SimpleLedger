@@ -22,6 +22,7 @@
 		518E00D72B200F2F002226F0 /* FSCalendarRepresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 518E00D62B200F2F002226F0 /* FSCalendarRepresentable.swift */; };
 		5196DF372B24062B00E09C30 /* DateHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5196DF362B24062B00E09C30 /* DateHelper.swift */; };
 		5196DF3C2B25DED200E09C30 /* CustomFSCalendarCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5196DF3B2B25DED200E09C30 /* CustomFSCalendarCell.swift */; };
+		5196DF402B269C2E00E09C30 /* SharedDateModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5196DF3F2B269C2E00E09C30 /* SharedDateModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -43,6 +44,7 @@
 		5196DF362B24062B00E09C30 /* DateHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateHelper.swift; sourceTree = "<group>"; };
 		5196DF382B24084700E09C30 /* SimpleLedger.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = SimpleLedger.entitlements; sourceTree = "<group>"; };
 		5196DF3B2B25DED200E09C30 /* CustomFSCalendarCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomFSCalendarCell.swift; sourceTree = "<group>"; };
+		5196DF3F2B269C2E00E09C30 /* SharedDateModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedDateModel.swift; sourceTree = "<group>"; };
 		9F47AB6998C064104959C9EE /* Pods_SimpleLedger.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SimpleLedger.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		AB9123D18E460206E2377712 /* Pods-SimpleLedger.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SimpleLedger.release.xcconfig"; path = "Target Support Files/Pods-SimpleLedger/Pods-SimpleLedger.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -119,6 +121,7 @@
 			children = (
 				515624BE2B20407A00014F41 /* TagModel.swift */,
 				515624C22B20519B00014F41 /* LedgerModel.swift */,
+				5196DF3F2B269C2E00E09C30 /* SharedDateModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -281,6 +284,7 @@
 				515624C12B20411300014F41 /* TagViewModel.swift in Sources */,
 				518E00D12B200B22002226F0 /* CalendarView.swift in Sources */,
 				5196DF372B24062B00E09C30 /* DateHelper.swift in Sources */,
+				5196DF402B269C2E00E09C30 /* SharedDateModel.swift in Sources */,
 				518E00D32B200B42002226F0 /* ChartView.swift in Sources */,
 				5196DF3C2B25DED200E09C30 /* CustomFSCalendarCell.swift in Sources */,
 			);

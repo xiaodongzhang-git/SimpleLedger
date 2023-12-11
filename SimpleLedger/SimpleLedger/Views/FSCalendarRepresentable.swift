@@ -29,6 +29,7 @@ struct FSCalendarRepresentable: UIViewRepresentable {
             let totalAmount = parent.viewModel.totalAmountPerDay()[date]
             return totalAmount != nil ? String(format: "%.2f", totalAmount!) : nil
         }
+        
     }
 
     func makeCoordinator() -> Coordinator {

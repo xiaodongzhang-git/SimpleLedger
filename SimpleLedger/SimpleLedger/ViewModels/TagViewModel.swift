@@ -35,7 +35,6 @@ class TagViewModel: ObservableObject {
         if let data = store.data(forKey: "Tags") {
             do {
                 tags = try JSONDecoder().decode([TagModel].self, from: data)
-                print(tags)
             } catch {
                 print("Error loading tags: \(error)")
             }
