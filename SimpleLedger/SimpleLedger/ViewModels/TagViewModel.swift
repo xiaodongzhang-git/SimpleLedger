@@ -41,9 +41,10 @@ class TagViewModel: ObservableObject {
         }
     }
     
-    func updateTag(id: UUID, newName: String) {
+    func updateTag(id: UUID, newName: String, newColor: UIColor) {
         if let index = tags.firstIndex(where: { $0.id == id }) {
             tags[index].name = newName
+            tags[index].color = newColor
             saveTags()
         }
     }

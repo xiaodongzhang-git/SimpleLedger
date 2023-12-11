@@ -10,7 +10,8 @@ struct TagView: View {
     @State private var newTagName = ""
     @State private var selectedColor: Color = .gray
     @State private var editingTagID: UUID? = nil
-    @State private var tempTagName = "" // 用于临时存储编辑中的标签名称
+    @State private var tempTagName = ""
+    @State private var tempTagColor: UIColor = .gray
 
     var body: some View {
         VStack {
@@ -42,9 +43,16 @@ struct TagView: View {
                         if editingTagID == tag.id {
                             // 编辑状态
                             TextField("编辑标签", text: $tempTagName)
+                            ColorPicker("选择颜色", selection: Binding(get: {
+                                                            Color(tempTagColor)
+                                                        }, set: { newColor in
+                                                            tempTagColor = UIColor(newColor)
+                                                        }), supportsOpacity: false)
+
+                                                        Spacer()
                             Spacer()
                             Button(action: {
-                                viewModel.updateTag(id: tag.id, newName: tempTagName)
+                                viewModel.updateTag(id: tag.id, newName: tempTagName, newColor: tempTagColor)
                                 editingTagID = nil
                             }) {
                                 Image(systemName: "checkmark")
