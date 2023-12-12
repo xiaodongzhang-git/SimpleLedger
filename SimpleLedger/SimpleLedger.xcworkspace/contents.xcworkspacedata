@@ -2,6 +2,18 @@
 <Workspace
    version = "1.0">
    <FileRef
+      location = "group:SimpleLedger/Models/TagEntryMo+CoreDataClass.swift">
+   </FileRef>
+   <FileRef
+      location = "group:SimpleLedger/Models/TagEntryMo+CoreDataProperties.swift">
+   </FileRef>
+   <FileRef
+      location = "group:SimpleLedger/Models/LedgerEntryMO+CoreDataClass.swift">
+   </FileRef>
+   <FileRef
+      location = "group:SimpleLedger/Models/LedgerEntryMO+CoreDataProperties.swift">
+   </FileRef>
+   <FileRef
       location = "group:SimpleLedger.xcodeproj">
    </FileRef>
    <FileRef

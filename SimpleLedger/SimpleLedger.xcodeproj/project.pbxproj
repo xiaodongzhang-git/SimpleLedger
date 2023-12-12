@@ -23,8 +23,12 @@
 		5196DF372B24062B00E09C30 /* DateHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5196DF362B24062B00E09C30 /* DateHelper.swift */; };
 		5196DF3C2B25DED200E09C30 /* CustomFSCalendarCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5196DF3B2B25DED200E09C30 /* CustomFSCalendarCell.swift */; };
 		5196DF402B269C2E00E09C30 /* SharedDateModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5196DF3F2B269C2E00E09C30 /* SharedDateModel.swift */; };
-		5196DF462B273CD400E09C30 /* MyCoreData.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 5196DF442B273CD400E09C30 /* MyCoreData.xcdatamodeld */; };
 		5196DF482B27484200E09C30 /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5196DF472B27484200E09C30 /* Persistence.swift */; };
+		51AB2F3B2B27EF6000BCBB67 /* LedgerEntryMO+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51AB2F3A2B27EF6000BCBB67 /* LedgerEntryMO+CoreDataClass.swift */; };
+		51AB2F3D2B27EF7000BCBB67 /* LedgerEntryMO+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51AB2F3C2B27EF7000BCBB67 /* LedgerEntryMO+CoreDataProperties.swift */; };
+		51AB2F3F2B27EF7A00BCBB67 /* TagEntryMo+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51AB2F3E2B27EF7A00BCBB67 /* TagEntryMo+CoreDataClass.swift */; };
+		51AB2F412B27EF8000BCBB67 /* TagEntryMo+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51AB2F402B27EF8000BCBB67 /* TagEntryMo+CoreDataProperties.swift */; };
+		51AB2F442B27EF8600BCBB67 /* MyCoreData.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 51AB2F422B27EF8600BCBB67 /* MyCoreData.xcdatamodeld */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -47,8 +51,12 @@
 		5196DF382B24084700E09C30 /* SimpleLedger.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = SimpleLedger.entitlements; sourceTree = "<group>"; };
 		5196DF3B2B25DED200E09C30 /* CustomFSCalendarCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomFSCalendarCell.swift; sourceTree = "<group>"; };
 		5196DF3F2B269C2E00E09C30 /* SharedDateModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedDateModel.swift; sourceTree = "<group>"; };
-		5196DF452B273CD400E09C30 /* MyCoreData.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = MyCoreData.xcdatamodel; sourceTree = "<group>"; };
 		5196DF472B27484200E09C30 /* Persistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persistence.swift; sourceTree = "<group>"; };
+		51AB2F3A2B27EF6000BCBB67 /* LedgerEntryMO+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "LedgerEntryMO+CoreDataClass.swift"; sourceTree = "<group>"; };
+		51AB2F3C2B27EF7000BCBB67 /* LedgerEntryMO+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "LedgerEntryMO+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		51AB2F3E2B27EF7A00BCBB67 /* TagEntryMo+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "TagEntryMo+CoreDataClass.swift"; sourceTree = "<group>"; };
+		51AB2F402B27EF8000BCBB67 /* TagEntryMo+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "TagEntryMo+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		51AB2F432B27EF8600BCBB67 /* MyCoreData.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = MyCoreData.xcdatamodel; sourceTree = "<group>"; };
 		9F47AB6998C064104959C9EE /* Pods_SimpleLedger.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SimpleLedger.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		AB9123D18E460206E2377712 /* Pods-SimpleLedger.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SimpleLedger.release.xcconfig"; path = "Target Support Files/Pods-SimpleLedger/Pods-SimpleLedger.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -124,10 +132,14 @@
 		518E00CD2B200900002226F0 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				51AB2F422B27EF8600BCBB67 /* MyCoreData.xcdatamodeld */,
+				51AB2F402B27EF8000BCBB67 /* TagEntryMo+CoreDataProperties.swift */,
+				51AB2F3E2B27EF7A00BCBB67 /* TagEntryMo+CoreDataClass.swift */,
+				51AB2F3C2B27EF7000BCBB67 /* LedgerEntryMO+CoreDataProperties.swift */,
+				51AB2F3A2B27EF6000BCBB67 /* LedgerEntryMO+CoreDataClass.swift */,
 				515624BE2B20407A00014F41 /* TagModel.swift */,
 				515624C22B20519B00014F41 /* LedgerModel.swift */,
 				5196DF3F2B269C2E00E09C30 /* SharedDateModel.swift */,
-				5196DF442B273CD400E09C30 /* MyCoreData.xcdatamodeld */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -283,14 +295,18 @@
 				518E00C02B200052002226F0 /* ContentView.swift in Sources */,
 				515624C32B20519B00014F41 /* LedgerModel.swift in Sources */,
 				515624BF2B20407A00014F41 /* TagModel.swift in Sources */,
+				51AB2F3B2B27EF6000BCBB67 /* LedgerEntryMO+CoreDataClass.swift in Sources */,
+				51AB2F442B27EF8600BCBB67 /* MyCoreData.xcdatamodeld in Sources */,
 				518E00D72B200F2F002226F0 /* FSCalendarRepresentable.swift in Sources */,
-				5196DF462B273CD400E09C30 /* MyCoreData.xcdatamodeld in Sources */,
+				51AB2F412B27EF8000BCBB67 /* TagEntryMo+CoreDataProperties.swift in Sources */,
+				51AB2F3D2B27EF7000BCBB67 /* LedgerEntryMO+CoreDataProperties.swift in Sources */,
 				518E00D52B200B93002226F0 /* TagView.swift in Sources */,
 				515624C52B2051EA00014F41 /* LedgerViewModel.swift in Sources */,
 				518E00BE2B200052002226F0 /* SimpleLedgerApp.swift in Sources */,
 				515624C12B20411300014F41 /* TagViewModel.swift in Sources */,
 				5196DF482B27484200E09C30 /* Persistence.swift in Sources */,
 				518E00D12B200B22002226F0 /* CalendarView.swift in Sources */,
+				51AB2F3F2B27EF7A00BCBB67 /* TagEntryMo+CoreDataClass.swift in Sources */,
 				5196DF372B24062B00E09C30 /* DateHelper.swift in Sources */,
 				5196DF402B269C2E00E09C30 /* SharedDateModel.swift in Sources */,
 				518E00D32B200B42002226F0 /* ChartView.swift in Sources */,
@@ -505,12 +521,12 @@
 /* End XCConfigurationList section */
 
 /* Begin XCVersionGroup section */
-		5196DF442B273CD400E09C30 /* MyCoreData.xcdatamodeld */ = {
+		51AB2F422B27EF8600BCBB67 /* MyCoreData.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
-				5196DF452B273CD400E09C30 /* MyCoreData.xcdatamodel */,
+				51AB2F432B27EF8600BCBB67 /* MyCoreData.xcdatamodel */,
 			);
-			currentVersion = 5196DF452B273CD400E09C30 /* MyCoreData.xcdatamodel */;
+			currentVersion = 51AB2F432B27EF8600BCBB67 /* MyCoreData.xcdatamodel */;
 			path = MyCoreData.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
