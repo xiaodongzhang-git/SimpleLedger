@@ -8,7 +8,7 @@ import SwiftUI
 
 struct ChartView: View {
     @StateObject private var ledgerModel = LedgerViewModel()
-    @StateObject private var tagViewModel = TagViewModel()
+    @StateObject private var tagViewModel = TagViewModel(context: PersistenceController.shared.viewContext)
     @State private var selectedRange: TimeScope = .today
 
     var body: some View {
@@ -61,7 +61,7 @@ struct PieChartView: View {
                     PieSliceView(center: center, radius: radius,
                                  startAngle: angle(for: index, in: data),
                                  endAngle: angle(for: index + 1, in: data),
-                                 color: Color(getTagModelById(id: data[index].tagID).color),
+                                 color: Color(UIColorHelper.fromString(hexString: getTagModelById(id: data[index].tagID).color)),
                                  tag: getTagModelById(id: data[index].tagID).name,
                                  amount: data[index].amount)
                 }
@@ -77,8 +77,8 @@ struct PieChartView: View {
         return .degrees(sum / total * 360)
     }
     
-    private func getTagModelById(id: UUID) -> TagModel {
-        return tagViewModel.getTagById(withId: id) ?? TagModel(name: "默认", color: UIColor(.gray))
+    private func getTagModelById(id: UUID) -> TagEntryMo {
+        return tagViewModel.getTagById(withId: id)
     }
 }
 

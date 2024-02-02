@@ -10,16 +10,16 @@ import Foundation
 import CoreData
 
 
-extension LedgerEntryMO {
+extension LedgerEntryMO: Identifiable  {
 
     @nonobjc public class func fetchRequest() -> NSFetchRequest<LedgerEntryMO> {
         return NSFetchRequest<LedgerEntryMO>(entityName: "LedgerEntryMO")
     }
 
     @NSManaged public var amount: Double
-    @NSManaged public var date: String?
-    @NSManaged public var id: String?
-    @NSManaged public var memo: String?
-    @NSManaged public var tagID: TagEntryMo?
+    @NSManaged public var date: String
+    @NSManaged public var id: UUID
+    @NSManaged public var memo: String
+    @NSManaged public var tagID: TagEntryMo
 
 }

@@ -7,10 +7,11 @@
 import SwiftUI
 
 struct CalendarView: View {
+    
     @State private var selectedDate: Date = Date()
     @State private var showingDetail = false
     @StateObject private var viewModel = LedgerViewModel()
-    @StateObject private var tagViewModel = TagViewModel()
+    @StateObject private var tagViewModel = TagViewModel(context: PersistenceController.shared.viewContext)
     @StateObject private var sharedDateModel = SharedDateModel()
     
     var body: some View {

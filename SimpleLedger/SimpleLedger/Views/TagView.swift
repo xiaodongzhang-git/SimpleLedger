@@ -6,7 +6,7 @@
 import SwiftUI
 
 struct TagView: View {
-    @StateObject private var viewModel = TagViewModel()
+    @StateObject private var viewModel = TagViewModel(context: PersistenceController.shared.viewContext)
     @State private var newTagName = ""
     @State private var selectedColor: Color = .gray
     @State private var editingTagID: UUID? = nil
@@ -62,7 +62,7 @@ struct TagView: View {
                             Text(tag.name)
                             Spacer()
                             Circle()
-                                .fill(Color(uiColor: tag.color))
+                                .fill(Color(uiColor: UIColorHelper.fromString(hexString: tag.color)))
                                 .frame(width: 24, height: 24)
 
                             // 编辑按钮
@@ -84,7 +84,7 @@ struct TagView: View {
     // 检查颜色是否已被使用
     private func isColorUsed(_ color: Color) -> Bool {
         let uiColor = UIColor(color)
-        return viewModel.tags.contains { $0.color == uiColor }
+        return viewModel.tags.contains { UIColorHelper.fromString(hexString: $0.color) == uiColor }
     }
 }
 

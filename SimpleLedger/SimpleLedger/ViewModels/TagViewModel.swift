@@ -5,81 +5,72 @@
 
 import Foundation
 import SwiftUI
+import CoreData
 
 class TagViewModel: ObservableObject {
-    @Published var tags: [TagModel] = []
+    @Published var tags: [TagEntryMo] = []
+    
+    private var viewContext: NSManagedObjectContext
 
-    private let store = NSUbiquitousKeyValueStore.default
-    private let defaults = UserDefaults.standard
-    private let tagsKey = "Tags"
-
-    init() {
+    init(context: NSManagedObjectContext) {
+        self.viewContext = context
         loadTags()
     }
 
     func addTag(name: String, color: Color) {
-        let newTag = TagModel(name: name, color: UIColor(color))
-        tags.append(newTag)
-        saveTagsToLocal()
-        syncTagsToCloud()
+        let newTag = TagEntryMo(context: viewContext)
+        newTag.id = UUID()
+        newTag.name = name
+        newTag.color = UIColorHelper.toString(color: UIColor(color))
+
+        saveContext()
+        loadTags()
     }
     
     func updateTag(id: UUID, newName: String, newColor: UIColor) {
-        if let index = tags.firstIndex(where: { $0.id == id }) {
-            tags[index].name = newName
-            tags[index].color = newColor
-            saveTagsToLocal()
-            syncTagsToCloud()
+        if let tag = tags.first(where: { $0.id == id }) {
+            tag.name = newName
+            tag.color = UIColorHelper.toString(color: newColor)
+            saveContext()
+            loadTags()
         }
     }
 
     func deleteTag(at offsets: IndexSet) {
-        tags.remove(atOffsets: offsets)
-        saveTagsToLocal()
-        syncTagsToCloud()
-    }
-    
-    func getTagById(withId id: UUID) -> TagModel? {
-        return tags.first { $0.id == id }
-    }
-    
-    private func saveTagsToLocal() {
-        do {
-            let data = try JSONEncoder().encode(tags)
-            defaults.set(data, forKey: tagsKey)
-        } catch {
-            print("Error saving tags to UserDefaults: \(error)")
+        offsets.forEach { index in
+            let tag = tags[index]
+            viewContext.delete(tag)
         }
-    }
-    
-    private func syncTagsToCloud() {
-        do {
-            let data = try JSONEncoder().encode(tags)
-            store.set(data, forKey: "Tags")
-
-            let success = store.synchronize()
-            print("-----------")
-            print(success)
-            if success {
-                print("Success to synchronize with iCloud")
-            } else {
-                print("Failed to synchronize with iCloud")
-            }
-        } catch {
-            print("Error encoding tags: \(error)")
-        }
+        saveContext()
+        loadTags()
     }
 
+    private func saveContext() {
+        do {
+            try viewContext.save()
+        } catch {
+            print("Error saving context: \(error)")
+        }
+    }
 
     private func loadTags() {
-        if let data = defaults.data(forKey: tagsKey) {
-            do {
-                tags = try JSONDecoder().decode([TagModel].self, from: data)
-                syncTagsToCloud()
-            } catch {
-                print("Error loading tags from UserDefaults: \(error)")
-            }
+        let request: NSFetchRequest<TagEntryMo> = TagEntryMo.fetchRequest()
+        do {
+            tags = try viewContext.fetch(request)
+        } catch {
+            print("Error fetching tags: \(error)")
         }
     }
     
+    func getTagById(withId id: UUID) -> TagEntryMo {
+        if let tag = tags.first(where: { $0.id == id }) {
+            return tag
+        }else{
+            let tagMo = TagEntryMo()
+            tagMo.id = UUID()
+            tagMo.name = "默认"
+            tagMo.color = UIColorHelper.toString(color: UIColor.gray)
+            return tagMo
+        }
+    }
 }
